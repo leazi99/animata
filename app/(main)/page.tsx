@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles } from "lucide-react";
+import { Layers, Sparkles, WandSparkles } from "lucide-react";
 import Link from "next/link";
 import React, { Suspense } from "react";
 import Expandable from "@/animata/carousel/expandable";
@@ -171,7 +171,7 @@ function WhySection() {
 
 function FeaturedComponents() {
   return (
-    <section className="border-t border-border bg-[hsl(var(--surface-alt))] py-20 sm:py-24 lg:py-28">
+    <section className="border-t border-border bg-[hsl(var(--surface-alt))] py-16 sm:py-20 lg:py-24">
       <ComponentGallery
         eyebrow="Featured components"
         title="Meet the newest interactive patterns"
@@ -180,6 +180,9 @@ function FeaturedComponents() {
           {
             name: "Animated Feature Grid",
             href: "/docs/section/animated-feature-grid",
+            description:
+              "A polished split layout with spotlight hover states, rich cards, and premium motion tuned for product landing pages.",
+            icon: <Sparkles className="size-5" />,
             children: (
               <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(180deg,rgba(2,6,23,0.98),rgba(15,23,42,0.96))] p-4">
                 <AnimatedFeatureGrid
@@ -198,9 +201,33 @@ function FeaturedComponents() {
           {
             name: "Expandable Carousel",
             href: "/docs/carousel/expandable",
+            description:
+              "An interactive carousel pattern with fluid transitions and tactile drag behavior for modern SaaS storytelling.",
+            icon: <Layers className="size-5" />,
             children: (
               <div className="flex h-full w-full items-center justify-center bg-background p-3">
                 <Expandable autoPlay className="h-[220px] w-full" />
+              </div>
+            ),
+          },
+          {
+            name: "Motion-Driven UI Blocks",
+            href: "/docs/section/animated-feature-grid",
+            description:
+              "Composable blocks that pair expressive typography and purposeful micro-interactions without sacrificing performance.",
+            icon: <WandSparkles className="size-5" />,
+            children: (
+              <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_15%_20%,rgba(56,189,248,0.2),transparent_45%),linear-gradient(180deg,rgba(2,6,23,0.9),rgba(15,23,42,0.92))] p-3">
+                <AnimatedFeatureGrid
+                  title=""
+                  description=""
+                  eyebrow=""
+                  columns={2}
+                  items={featureGridItems}
+                  className="h-full w-full border-0 bg-transparent px-0 py-0 shadow-none"
+                  gridClassName="mt-0 gap-3"
+                  headerClassName="hidden"
+                />
               </div>
             ),
           },

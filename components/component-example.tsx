@@ -19,12 +19,12 @@ export function ComponentExample({
   extractedClassNames,
   align = "center",
   ...props
-}: ComponentExampleProps) {
+}: Readonly<ComponentExampleProps>) {
   const [Example, Code, ...Children] = React.Children.toArray(children) as React.ReactElement[];
 
   const codeString = React.useMemo(() => {
     const codeProps = Code?.props as Record<string, unknown> | undefined;
-    if (typeof codeProps?.["data-rehype-pretty-code-fragment"] !== "undefined") {
+    if (codeProps?.["data-rehype-pretty-code-fragment"] !== undefined) {
       const [, Button] = React.Children.toArray(
         codeProps?.children as React.ReactNode,
       ) as React.ReactElement[];
@@ -63,7 +63,7 @@ export function ComponentExample({
         </div>
         <TabsContent value="preview" className="rounded-md border">
           <div
-            className={cn("flex min-h-[350px] justify-center p-10", {
+            className={cn("flex min-h-[240px] justify-center p-6 md:min-h-[280px] md:p-8", {
               "items-center": align === "center",
               "items-start": align === "start",
               "items-end": align === "end",
