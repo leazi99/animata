@@ -79,13 +79,13 @@ pre .word--highlighted {
 }
 
 .mdx {
-  @apply mt-4;
+  @apply mt-6;
 }
 
 .mdx > h1 {
-  @apply my-4;
+  @apply mb-4 mt-8;
 }
 
 .mdx > h2 {
-  @apply my-4;
+  @apply mb-3 mt-7;
 }

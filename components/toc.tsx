@@ -10,7 +10,7 @@ interface TocProps {
   toc: TableOfContents;
 }
 
-export function DashboardTableOfContents({ toc }: TocProps) {
+export function DashboardTableOfContents({ toc }: Readonly<TocProps>) {
   const itemIds = React.useMemo(
     () =>
       toc.items
@@ -30,8 +30,10 @@ export function DashboardTableOfContents({ toc }: TocProps) {
   }
 
   return (
-    <div className="space-y-2">
-      <p className="font-medium">On This Page</p>
+    <div className="space-y-3">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        On this page
+      </p>
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
   );
@@ -78,17 +80,19 @@ interface TreeProps {
   activeItem?: string;
 }
 
-function Tree({ tree, level = 1, activeItem }: TreeProps) {
+function Tree({ tree, level = 1, activeItem }: Readonly<TreeProps>) {
   return tree?.items?.length && level < 3 ? (
-    <ul className={cn("m-0 list-none", { "pl-4": level !== 1 })}>
-      {tree.items.map((item, index) => {
+    <ul className={cn("m-0 list-none", { "pl-3": level !== 1 })}>
+      {tree.items.map((item) => {
         return (
-          <li key={index} className={cn("mt-0 pt-2")}>
+          <li key={`${item.url ?? item.title}-${level}`} className={cn("mt-0 pt-1.5")}>
             <a
               href={item.url}
               className={cn(
-                "inline-block no-underline transition-colors hover:text-foreground",
-                item.url === `#${activeItem}` ? "font-bold underline" : "text-muted-foreground",
+                "inline-block text-sm leading-6 no-underline transition-colors hover:text-foreground",
+                item.url === `#${activeItem}`
+                  ? "font-semibold text-foreground underline"
+                  : "text-muted-foreground",
               )}
             >
               {item.title}

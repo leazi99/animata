@@ -13,23 +13,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import type { SidebarNavItem } from "@/types";
+
+interface NavMenuProps {
+  value: string;
+  sideBarNavItems: SidebarNavItem[];
+  baseRoute: "docs" | "blog";
+  triggerClassName?: string;
+  className?: string;
+}
 
 export default function NavMenu({
   value,
   sideBarNavItems,
   baseRoute,
-}: {
-  value: string;
-  sideBarNavItems: SidebarNavItem[];
-  baseRoute: "docs" | "blog";
-}) {
+  triggerClassName,
+  className,
+}: Readonly<NavMenuProps>) {
   const router = useRouter();
   const [navigating, setNavigating] = useState(false);
+  const suffix = value ? `/${value}` : "";
+  const defaultValue = `/${baseRoute}${suffix}`;
+
   return (
-    <>
+    <div className={cn("flex items-center", className)}>
       <Select
-        defaultValue={`/${baseRoute}${value ? `/${value}` : ""}`}
+        defaultValue={defaultValue}
         onValueChange={(value) => {
           if (value) {
             setNavigating(true);
@@ -37,12 +47,17 @@ export default function NavMenu({
           }
         }}
       >
-        <SelectTrigger className="w-fit">
+        <SelectTrigger
+          className={cn(
+            "h-8 w-fit border-border/70 bg-background/70 px-2.5 text-xs font-medium text-foreground/90",
+            triggerClassName,
+          )}
+        >
           <SelectValue placeholder="Change page" />
         </SelectTrigger>
         <SelectContent>
-          {sideBarNavItems.map((item, index) => (
-            <SelectGroup key={index}>
+          {sideBarNavItems.map((item) => (
+            <SelectGroup key={item.href ?? item.title}>
               <SelectLabel className="font-medium">{item.title}</SelectLabel>
               {item?.items?.length &&
                 item.items.map((item) => (
@@ -71,6 +86,6 @@ export default function NavMenu({
           <Loader className="inline-block size-4 animate-spin" />
         </div>
       )}
-    </>
+    </div>
   );
 }

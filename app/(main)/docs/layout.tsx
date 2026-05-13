@@ -6,12 +6,12 @@ interface DocsLayoutProps {
   children: React.ReactNode;
 }
 
-export default function DocsLayout({ children }: DocsLayoutProps) {
+export default function DocsLayout({ children }: Readonly<DocsLayoutProps>) {
   return (
     <div className="border-b border-border">
-      <div className="mx-auto w-full max-w-6xl flex-1 items-start px-4 sm:px-6 md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-4 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-6">
-        <aside className="fixed top-14 z-30 -ml-2 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block">
-          <ScrollArea className="h-full py-6 pr-6 lg:py-8">
+      <div className="mx-auto w-full max-w-[1400px] flex-1 items-start px-6 lg:px-8 md:grid md:grid-cols-[14rem_minmax(0,1fr)] md:gap-8">
+        <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-56 shrink-0 md:sticky md:block">
+          <ScrollArea className="h-full py-6 pr-4 lg:py-8">
             <DocsSidebarNav items={docsConfig.sidebarNav} />
           </ScrollArea>
         </aside>

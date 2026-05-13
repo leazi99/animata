@@ -75,7 +75,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function DocPage({ params }: DocPageProps) {
+export default async function DocPage({ params }: Readonly<DocPageProps>) {
   const resolvedParams = await params;
   const doc = await getDocFromParams(resolvedParams);
 
@@ -88,27 +88,30 @@ export default async function DocPage({ params }: DocPageProps) {
   return (
     <main
       id="main-content"
-      className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_150px]"
+      className="relative py-8 xl:grid xl:grid-cols-[minmax(0,1fr)_16rem] xl:gap-10 2xl:grid-cols-[minmax(0,1fr)_18rem]"
     >
-      <div className="mx-auto w-full min-w-0">
-        <div className="mb-4 flex items-center space-x-1 text-sm text-muted-foreground">
-          <div className="overflow-hidden text-ellipsis whitespace-nowrap">Docs</div>
-          <ChevronRightIcon className="h-4 w-4" />
+      <article className="w-full min-w-0 max-w-[920px]">
+        <div className="mb-5 flex items-center gap-1.5 text-xs font-medium tracking-wide text-muted-foreground">
+          <div className="overflow-hidden text-ellipsis whitespace-nowrap uppercase">Docs</div>
+          <ChevronRightIcon className="h-3.5 w-3.5 opacity-80" />
           <NavMenu
             baseRoute="docs"
             sideBarNavItems={docsConfig.sidebarNav}
             value={doc.slugAsParams}
+            triggerClassName="h-8"
           />
         </div>
-        <div className="space-y-2">
-          <h1 className={cn("scroll-m-20 text-4xl font-bold tracking-tight")}>{doc.title}</h1>
+        <header className="space-y-3">
+          <h1 className={cn("scroll-m-20 max-w-3xl text-4xl font-bold tracking-tight lg:text-5xl")}>
+            {doc.title}
+          </h1>
           {doc.description && (
-            <p className="w-full text-muted-foreground">
+            <p className="max-w-2xl text-pretty text-base leading-7 text-muted-foreground lg:text-[17px]">
               <Balancer>{doc.description}</Balancer>
             </p>
           )}
           <div
-            className={cn("flex items-center space-x-2 text-sm text-muted-foreground", {
+            className={cn("flex flex-wrap items-center gap-2 text-sm text-muted-foreground", {
               invisible: !doc.labels?.length,
             })}
           >
@@ -120,9 +123,9 @@ export default async function DocPage({ params }: DocPageProps) {
               );
             })}
           </div>
-        </div>
+        </header>
         {doc.links ? (
-          <div className="flex items-center space-x-2 pt-4">
+          <div className="flex flex-wrap items-center gap-2 pt-5">
             {doc.links?.doc && (
               <Link
                 href={doc.links.doc}
@@ -147,10 +150,10 @@ export default async function DocPage({ params }: DocPageProps) {
             )}
           </div>
         ) : null}
-        <div className="relative w-fit overflow-y-hidden">
+        <div className="relative mt-4 w-fit overflow-y-hidden">
           <CarbonAds />
         </div>
-        <div className="pb-12">
+        <div className="pb-12 pt-2">
           <Mdx code={doc.body} filePath={`content/${doc.path}.mdx`} />
 
           <div className="my-3 text-right">
@@ -165,17 +168,17 @@ export default async function DocPage({ params }: DocPageProps) {
           </div>
         </div>
         <DocsPager doc={doc} />
-      </div>
+      </article>
       {doc.toc && (
-        <div className="hidden text-sm xl:block">
-          <div className="sticky top-16 -mt-10 pt-4">
-            <ScrollArea className="pb-10">
-              <div className="sticky top-16 -mt-10 h-[calc(100vh-3.5rem)] py-12">
+        <aside className="hidden text-sm xl:block">
+          <div className="sticky top-20">
+            <ScrollArea className="h-[calc(100vh-6.5rem)] pr-2">
+              <div className="pb-8">
                 <DashboardTableOfContents toc={toc} />
               </div>
             </ScrollArea>
           </div>
-        </div>
+        </aside>
       )}
     </main>
   );

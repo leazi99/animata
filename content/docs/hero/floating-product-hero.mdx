@@ -1,0 +1,110 @@
+---
+title: Floating Product Hero
+description: A premium SaaS/AI landing page hero section with floating glassmorphic cards, parallax effects, and smooth animations
+labels: ["requires-interaction", "hover", "animations", "parallax"]
+author: Animata
+published: true
+---
+
+<ComponentPreview name="hero-floating-product-hero--default" />
+
+## Installation
+
+<Steps>
+
+<Step>Run the following command</Step>
+
+It will create a new file `floating-product-hero.tsx` inside the `components/animata/hero` directory.
+
+```bash
+mkdir -p components/animata/hero && touch components/animata/hero/floating-product-hero.tsx
+```
+
+<Step>Paste the code</Step>
+
+Open the newly created file and paste the following code:
+
+```jsx file=<rootDir>/animata/hero/floating-product-hero.tsx
+
+```
+
+</Steps>
+
+## Features
+
+- **Glassmorphic Cards**: Semi-transparent with backdrop blur and soft borders
+- **Smooth Animations**: Entrance effects, infinite floating motion, and parallax tracking
+- **Floating Motion**: Vertical oscillation with slight rotation on infinite loop
+- **Parallax Effect**: Mouse movement affects card positions for depth illusion
+- **Dark Mode**: Premium dark background with radial gradient accents
+- **Responsive**: Adapts from mobile to desktop with optimized animations
+- **Accessible**: Respects `prefers-reduced-motion` and maintains keyboard navigation
+
+## Component Props
+
+```typescript
+interface FloatingProductHeroProps {
+  title?: string;              // Main headline
+  subtitle?: string;           // Supporting paragraph
+  primaryCtaText?: string;     // Primary button text
+  secondaryCtaText?: string;   // Secondary button text
+  onPrimaryCta?: () => void;   // Primary button click handler
+  onSecondaryCta?: () => void; // Secondary button click handler
+  showAllCards?: boolean;      // Show/hide floating cards
+  theme?: "dark" | "light";   // Color theme
+  animationEnabled?: boolean;  // Enable/disable animations
+  className?: string;          // Custom CSS classes
+  minHeight?: string;          // Custom height
+}
+```
+
+## Basic Usage
+
+```jsx
+import { FloatingProductHero } from "@/animata/hero/floating-product-hero";
+
+export default function Page() {
+  return (
+    <FloatingProductHero
+      title="Build the Future Faster"
+      subtitle="Experience cutting-edge design with smooth animations."
+      primaryCtaText="Get Started"
+      secondaryCtaText="Learn More"
+      onPrimaryCta={() => console.log("Primary CTA")}
+      onSecondaryCta={() => console.log("Secondary CTA")}
+    />
+  );
+}
+```
+
+## Customization
+
+### Custom Content
+
+```jsx
+<FloatingProductHero
+  title="Ship Code, Not Excuses"
+  subtitle="Deploy intelligent applications with AI-powered insights."
+  primaryCtaText="Start Building"
+  secondaryCtaText="Read Docs"
+/>
+```
+
+### Disable Animations
+
+```jsx
+<FloatingProductHero animationEnabled={false} showAllCards={false} />
+```
+
+## Accessibility
+
+- Respects `prefers-reduced-motion` media query
+- Keyboard accessible buttons
+- High contrast text (WCAG AA)
+- Semantic HTML structure
+
+## Credits
+
+Built by [Ujjwal Basnet](https://github.com/leazi99)
+
+Inspired by landing pages from Stripe, Linear, Vercel, and Framer.
